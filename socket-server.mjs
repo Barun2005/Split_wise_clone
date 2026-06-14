@@ -4,7 +4,7 @@ import { createServer } from "http";
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*", // Allow all origins for production (Vercel)
     methods: ["GET", "POST"]
   }
 });
@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 httpServer.listen(PORT, () => {
-  console.log(`🚀 Socket.IO server running on http://localhost:${PORT}`);
+  console.log(`🚀 Socket.IO server running on port ${PORT}`);
 });

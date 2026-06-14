@@ -6,8 +6,9 @@ export const useSocket = (groupId: string) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    // Connect to the standalone WebSocket server
-    const socket = io("http://localhost:3001", {
+    // Connect to the WebSocket server using environment variable or fallback to localhost
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001";
+    const socket = io(socketUrl, {
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
     });
